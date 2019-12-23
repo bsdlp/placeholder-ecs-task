@@ -1,5 +1,13 @@
 package main
 
+import (
+	"os"
+	"os/signal"
+	"syscall"
+)
+
 func main() {
-	select {}
+	sc := make(chan os.Signal, 1)
+	signal.Notify(sc, syscall.SIGINT, syscall.SIGTERM, os.Interrupt)
+	<-sc
 }
